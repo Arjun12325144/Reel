@@ -11,15 +11,25 @@ const app = express();
 // header reflects the requesting origin and matches the frontend.
 app.use(cors({
     origin: function (origin, callback) {
-        // allow requests with no origin (e.g., mobile apps, curl)
-        if (!origin) return callback(null, true)
-        // allow any localhost origin for dev
-        if (origin.startsWith('http://localhost')) return callback(null, true)
-        // otherwise deny
-        callback(new Error('Not allowed by CORS'))
+        if (!origin) return callback(null, true); // curl or mobile apps
+        if (origin.startsWith('http://localhost')) return callback(null, true); // local dev
+        if (origin === 'https://reel-1fz8-7u2ycoh0r-arjuns-projects-edf07b04.vercel.app') return callback(null, true); // deployed frontend
+        callback(new Error('Not allowed by CORS'));
     },
     credentials: true
 }))
+
+// app.use(cors({
+//     origin: function (origin, callback) {
+//         // allow requests with no origin (e.g., mobile apps, curl)
+//         if (!origin) return callback(null, true)
+//         // allow any localhost origin for dev
+//         if (origin.startsWith('http://localhost')) return callback(null, true)
+//         // otherwise deny
+//         callback(new Error('Not allowed by CORS'))
+//     },
+//     credentials: true
+// }))
 app.use(express.json()) // ya middleware req.body me data lakr dega
 app.use(cookieParser());
 
