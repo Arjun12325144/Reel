@@ -1,0 +1,26 @@
+/* Centralized theme variables. Uses system preference for light/dark. */
+:root{
+  --bg: #ffffff;
+  --text: #0b0b0b;
+  --muted: #6b7280;
+  --glass: rgba(255,255,255,0.6);
+  --primary: #2563eb; /* blue-600 */
+  --radius: 10px;
+  --card-bg: #ffffff;
+  --input-bg: #f8fafc;
+  --border: rgba(15,23,42,0.06);
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #0b1220;
+    --text: #e6eef8;
+    --muted: #94a3b8;
+    --glass: rgba(255,255,255,0.04);
+    --primary: #60a5fa; /* blue-300 */
+    --radius: 10px;
+    --card-bg: #071226;
+    --input-bg: #06101a;
+    --border: rgba(255,255,255,0.04);
+  }
+}

@@ -1,0 +1,24 @@
+@import '../../styles/_variables.css';
+
+/* Mobile-first styles for Create Food page */
+.create-food-card{
+  width:100%;
+  max-width:420px;
+  padding:20px;
+}
+
+.preview-video{
+  margin-top:8px;
+  width:100%;
+  border-radius:8px;
+  background:var(--input-bg);
+  max-height:220px;
+  object-fit:cover;
+}
+
+@media (min-width:720px){
+  .create-food-card{
+    max-width:560px;
+    padding:28px;
+  }
+}

@@ -1,0 +1,143 @@
+.home-page-container {
+    display: flex;
+    position:relative;
+    flex-direction: column;
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
+    background-color: #000;
+    overflow: hidden; /* Prevent body scroll */
+}
+
+.reel-overlay {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 16px;
+}
+
+.reel-info {
+    
+    flex-grow: 1;
+}
+
+.reel-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    color: white;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    padding: 0;
+}
+
+.action-btn svg {
+    width: 28px;
+    height: 28px;
+}
+
+.action-btn.liked {
+    color: red;
+}
+
+.action-btn.saved {
+    color: #ffd700; /* gold */
+}
+
+
+.bottom-nav {
+    background-color: #000;
+    border-top: 1px solid #333;
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0;
+    flex-shrink: 0; /* Prevent the nav from shrinking */
+}
+
+.nav-item {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+}
+
+.nav-item svg {
+    width: 24px;
+    height: 24px;
+}
+.comment-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.comment-section textarea {
+    padding: 8px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background-color: #111;
+    color: white;
+    resize: none;
+}
+
+.comment-section .submit-comment {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+}
+.comment {
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #222;
+}
+
+.comment-author {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.comment-text {
+    margin: 0;
+}
+
+.show-more-comments {
+    background: none;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.comment-section.active {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30vh;
+    background-color: #111;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-input-area {
+    display: flex;
+    position:relative;
+    margin-bottom: 10px;
+}

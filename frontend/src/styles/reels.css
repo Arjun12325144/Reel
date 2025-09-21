@@ -1,0 +1,96 @@
+:root{
+  --overlay-padding: 16px;
+}
+
+/* Container that enables vertical snap scrolling */
+.reels-container{
+  flex-grow: 1; /* Allow this container to take up available space */
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Each reel fills the viewport and snaps into place */
+.reel{
+  position: relative;
+  height: 100%; /* Each reel should fill the container's height */
+  width: 100%;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  background: #000;
+}
+
+/* Video stretches to cover the whole reel area */
+.reel-video{
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* Overlay placed on top of video at the bottom area */
+.reel-overlay{
+  position: absolute;
+  bottom: var(--overlay-padding);
+  left: var(--overlay-padding);
+  right: var(--overlay-padding);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+  pointer-events: auto; /* allow interacting with the button and overlay */
+  z-index: 3; /* keep overlay above the video and gradient */
+}
+
+/* subtle gradient at the bottom to improve text readability */
+.reel::after{
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 36%;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.15), transparent);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Description text truncated to at most two lines */
+.reel-desc{
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.2;
+  max-width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* webkit */
+  line-clamp: 2; /* standard fallback */
+  -webkit-box-orient: vertical;
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  pointer-events: none;
+  margin-bottom: 6vw;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+}
+
+/* Visit store button - allow pointer events */
+.reel-visit{
+  pointer-events: auto;
+  background: rgba(255,255,255,0.95);
+  border: none; 
+  padding: 2px 7px;
+  text-decoration:none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.reel-visit:active{transform:scale(0.98)}
+
+/* Make overlay elements stand out on small screens */
+@media (max-width: 520px){
+  .reel-desc{font-size:14px}
+  .reel-visit{padding:7px 12px}
+}
