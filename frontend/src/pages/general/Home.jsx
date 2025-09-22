@@ -16,7 +16,9 @@ const Home = () => {
     const [comments,setComments] = useState({})
     const handleLike = async (foodId) => {
         try {
-            await axios.post('http://localhost:3000/api/food/like', { foodId }, { withCredentials: true });
+            // await axios.post('http://localhost:3000/api/food/like', { foodId }, { withCredentials: true });
+            await axios.post(`${process.env.REACT_APP_API_URL}/api/food/like`, { foodId }, { withCredentials: true });
+
             // Optimistically update UI or refetch data
             setVideos(videos.map(v => v._id === foodId ? { ...v, isLiked: !v.isLiked, likeCount: v.isLiked ? v.likeCount - 1 : v.likeCount + 1 } : v));
         } catch (error) {
@@ -34,7 +36,9 @@ const Home = () => {
         //if comments are not loaded fetch them
         if(!comments[foodId]){
             try{
-                const response = await axios.get(`http://localhost:3000/api/food/comment/${foodId}`,{withCredentials:true});
+                // const response = await axios.get(`http://localhost:3000/api/food/comment/${foodId}`,{withCredentials:true});
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/food/comment/${foodId}`, { withCredentials: true });
+
                 setComments(prevComments =>({
                     ...prevComments,
                     [foodId]:{
@@ -58,7 +62,9 @@ const Home = () => {
     }
     const handleCommentSubmit = async(foodId)=>{
         try{
-            await axios.post('http://localhost:3000/api/food/comment',{foodId,text:commentText},{withCredentials:true});
+            // await axios.post('http://localhost:3000/api/food/comment',{foodId,text:commentText},{withCredentials:true});
+            await axios.post(`${process.env.REACT_APP_API_URL}/api/food/comment`, { foodId, text: commentText }, { withCredentials: true });
+
             setVideos(videos.map(v=>{
                 if(v._id === foodId){
                     return {...v, commentCount:(v.commentCount || 0)+1};
@@ -73,7 +79,9 @@ const Home = () => {
 
     const handleSave = async (foodId) => {
         try {
-            await axios.post('http://localhost:3000/api/food/save', { foodId }, { withCredentials: true });
+            // await axios.post('http://localhost:3000/api/food/save', { foodId }, { withCredentials: true });
+            await axios.post(`${process.env.REACT_APP_API_URL}/api/food/save`, { foodId }, { withCredentials: true });
+
             // Optimistically update UI or refetch data
             setVideos(videos.map(v => v._id === foodId ? { ...v, isSaved: !v.isSaved } : v));
         } catch (error) {
@@ -111,8 +119,9 @@ const Home = () => {
 
     // Fetch videos from backend API (example) and replace demo data
     useEffect(() => {
-        axios
-            .get('http://localhost:3000/api/food',{ withCredentials:true })
+        // axios.get('http://localhost:3000/api/food',{ withCredentials:true })
+        axios.get(`${process.env.REACT_APP_API_URL}/api/food`, { withCredentials: true })
+
             .then((response) => {
                     console.log(response.data);
                     const videosWithState = response.data.foodItems.map(video => ({

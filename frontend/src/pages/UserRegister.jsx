@@ -9,15 +9,25 @@ const UserRegister = ()=>{
     const firstName = e.target.fullName.value; 
     const email = e.target.email.value;
     const password = e.target.password.value
-    const response = await axios.post("http://localhost:3000/api/auth/user/register",{
-        fullName : firstName,
-        email,
-        password
-    }, 
-    {
-      withCredentials:true // jb tk hm withCredentials:true ko pass nhi krege to cookies ka andar token save nhi hoga
-    }
-  )
+  //   const response = await axios.post("http://localhost:3000/api/auth/user/register",{
+  //       fullName : firstName,
+  //       email,
+  //       password
+  //   }, 
+  //   {
+  //     withCredentials:true // jb tk hm withCredentials:true ko pass nhi krege to cookies ka andar token save nhi hoga
+  //   }
+  // )
+    const response = await axios.post(
+  `${process.env.REACT_APP_API_URL}/api/auth/user/register`,
+  {
+    fullName: firstName,
+    email,
+    password
+  },
+  { withCredentials: true }
+);
+
     console.log(response.data);
     navigate("/")
   }

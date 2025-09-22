@@ -15,7 +15,13 @@ const Saved = () => {
     const handleSave = async (foodId) => {
         try {
             // This endpoint toggles the save state
-            await axios.post('http://localhost:3000/api/food/save', { foodId }, { withCredentials: true });
+            // await axios.post('http://localhost:3000/api/food/save', { foodId }, { withCredentials: true });
+            await axios.post(
+  `${process.env.REACT_APP_API_URL}/api/food/save`,
+  { foodId },
+  { withCredentials: true }
+);
+
             // Optimistically remove the video from the UI
             setSavedVideos(currentVideos => currentVideos.filter(v => v._id !== foodId));
         } catch (error) {
@@ -54,7 +60,12 @@ const Saved = () => {
     useEffect(() => {
         const fetchSavedVideos = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/food/saved', { withCredentials: true });
+                // const response = await axios.get('http://localhost:3000/api/food/saved', { withCredentials: true });
+                const response = await axios.get(
+  `${process.env.REACT_APP_API_URL}/api/food/saved`,
+  { withCredentials: true }
+);
+
                 // Initialize isSaved to true for all fetched videos
                 const videosWithState = response.data.savedItems.map(video => ({
                     ...video,
