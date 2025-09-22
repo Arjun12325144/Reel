@@ -16,13 +16,14 @@ const Profile = ()=>{
         //     })
         // },[id])
         useEffect(() => {
-  axios.get(`${process.env.REACT_APP_API_URL}/api/food-partner/${id}`, { withCredentials: true })
+  axios.get(`${import.meta.env.VITE_API_URL}/api/food-partner/${id}`, { withCredentials: true })
     .then(response => {
       setProfile(response.data.foodPartner);
       setVideos(response.data.foodPartner.foodItems);
     })
     .catch(err => console.error(err));
 }, [id]);
+
 
         
         return (
