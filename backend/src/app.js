@@ -9,9 +9,29 @@ const app = express();
 // Allow local dev origins (Vite may use 5173 or fallback to 5174).
 // Use a dynamic origin function during development so the Access-Control-Allow-Origin
 // header reflects the requesting origin and matches the frontend.
+// app.use(cors({
+//     credentials: true
+// }))
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'https://reel-s73t.vercel.app',
+];
+
 app.use(cors({
-    credentials: true
-}))
+  origin: function (origin, callback) {
+    if (
+      !origin ||
+      allowedOrigins.includes(origin) ||
+      /^https:\/\/.*\.vercel\.app$/.test(origin)
+    ) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS not allowed for this origin: ' + origin));
+    }
+  },
+  credentials: true
+}));
 
 app.use(express.json()) // ya middleware req.body me data lakr dega
 app.use(cookieParser());
