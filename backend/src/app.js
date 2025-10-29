@@ -13,23 +13,13 @@ app.use(cors({
     origin: function (origin, callback) {
         if (!origin) return callback(null, true); // curl or mobile apps
         if (origin.startsWith('http://localhost')) return callback(null, true); // local dev
-        if (origin === 'https://reel-1fz8-7u2ycoh0r-arjuns-projects-edf07b04.vercel.app') return callback(null, true); // deployed frontend
+        if (origin === 'https://reel-fqhx.vercel.app') return callback(null, true); // main production
+        if (origin.includes('vercel.app')) return callback(null, true); // all preview deployments
         callback(new Error('Not allowed by CORS'));
     },
     credentials: true
 }))
 
-// app.use(cors({
-//     origin: function (origin, callback) {
-//         // allow requests with no origin (e.g., mobile apps, curl)
-//         if (!origin) return callback(null, true)
-//         // allow any localhost origin for dev
-//         if (origin.startsWith('http://localhost')) return callback(null, true)
-//         // otherwise deny
-//         callback(new Error('Not allowed by CORS'))
-//     },
-//     credentials: true
-// }))
 app.use(express.json()) // ya middleware req.body me data lakr dega
 app.use(cookieParser());
 
