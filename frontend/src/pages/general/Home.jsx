@@ -16,7 +16,7 @@ const Home = () => {
     const [comments,setComments] = useState({})
     const handleLike = async (foodId) => {
         try {
-            await axios.post('http://localhost:3000/api/food/like', { foodId }, { withCredentials: true });
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/food/like`, { foodId }, { withCredentials: true });
            
 
             // Optimistically update UI or refetch data

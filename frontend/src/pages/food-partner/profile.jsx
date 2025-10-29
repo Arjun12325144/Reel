@@ -9,7 +9,7 @@ const Profile = ()=>{
     const [videos,setVideos] = useState([])
         // const tiles = Array.from({length:9}).map((_,i)=>({id:i, title:'video'}))
         useEffect(()=>{
-            axios.get(`http://localhost:3000/api/food-partner/${id}`,{withCredentials:true})
+            axios.get(`${import.meta.env.VITE_API_URL}/api/food-partner/${id}`,{withCredentials:true})
             .then(response =>{
                 setProfile(response.data.foodPartner);
                 setVideos(response.data.foodPartner.foodItems)
