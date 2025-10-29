@@ -10,13 +10,6 @@ const app = express();
 // Use a dynamic origin function during development so the Access-Control-Allow-Origin
 // header reflects the requesting origin and matches the frontend.
 app.use(cors({
-    origin: function (origin, callback) {
-        if (!origin) return callback(null, true); // curl or mobile apps
-        if (origin.startsWith('http://localhost')) return callback(null, true); // local dev
-        if (origin === 'https://reel-fqhx.vercel.app') return callback(null, true); // main production
-        if (origin.includes('vercel.app')) return callback(null, true); // all preview deployments
-        callback(new Error('Not allowed by CORS'));
-    },
     credentials: true
 }))
 
