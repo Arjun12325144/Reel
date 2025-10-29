@@ -15,7 +15,7 @@ const Saved = () => {
     const handleSave = async (foodId) => {
         try {
             // This endpoint toggles the save state
-            await axios.post('http://localhost:3000/api/food/save', { foodId }, { withCredentials: true });
+            await axios.post(`${import.meta.env.VITE_API_URL}/api/food/save`, { foodId }, { withCredentials: true });
 //              
 
             // Optimistically remove the video from the UI
