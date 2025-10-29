@@ -37,9 +37,16 @@ app.use(express.json()) // ya middleware req.body me data lakr dega
 app.use(cookieParser());
 
 
-app.get("/",(req,res)=>{
-    res.send("hello");
-})
+app.get("/", (req, res) => {
+    res.json({
+        message: "Backend API is running",
+        endpoints: {
+            auth: "/api/auth/*",
+            food: "/api/food/*",
+            foodPartner: "/api/food-partner/*"
+        }
+    });
+});
 app.use("/api/auth",authRoutes);
 app.use("/api/food",foodRoutes);
 app.use("/api/food-partner",foodPartnerRoutes )

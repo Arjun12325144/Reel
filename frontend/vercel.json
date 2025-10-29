@@ -1,13 +1,28 @@
- {
-    "version":2,
+{
+    "version": 2,
     "builds": [
         {
-            "src":"package.json",
-            "use":"@vercel/static-build",
-            "config": {"distDir": "dist"}
+            "src": "package.json",
+            "use": "@vercel/static-build",
+            "config": { "distDir": "dist" }
         }
     ],
-    "rewrites":[
-        {"source":"/(.*)", "destination":"/"}
+    "routes": [
+        {
+            "src": "^/assets/(.*)",
+            "dest": "/assets/$1"
+        },
+        {
+            "src": "^/api/(.*)",
+            "dest": "https://reel-s73t.vercel.app/api/$1"
+        },
+        {
+            "src": "^/(.*)\\.(.+)$",
+            "dest": "/$1.$2"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/index.html"
+        }
     ]
 }
