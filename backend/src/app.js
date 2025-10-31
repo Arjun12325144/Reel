@@ -10,8 +10,11 @@ const app = express();
  
 const cors = require('cors');
 const allowedOrigins = [
-  'http://localhost:5173',
-  'http://127.0.0.1:5173'
+   'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'https://reel-fqhx.vercel.app',
+  'https://reel-s73t.vercel.app',
+  'https://reel-liart.vercel.app' 
 ];
 
 const corsOptions = {
