@@ -10,16 +10,22 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:5173',
   'http://127.0.0.1:5173',
-  'https://reel-fqhx.vercel.app',
-  'https://reel-s73t.vercel.app',
-  'https://reel-liart.vercel.app'
+  'https://reel-liart.vercel.app',
+  'https://reel-git-main-arjuns-projects-edf07b04.vercel.app',
+  'https://reel-pgui4ezff-arjuns-projects-edf07b04.vercel.app',
+  'https://reel-s73t.vercel.app'
 ];
 
 const corsOptions = {
   origin: function (origin, callback) {
     console.log('CORS origin:', origin);
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin) || /\.vercel\.app$/i.test(origin)) {
+    if (!origin) return callback(null, true); // allow server-to-server and Postman
+
+    // ✅ Allow explicitly whitelisted domains or any Vercel preview
+    if (
+      allowedOrigins.includes(origin) ||
+      /\.vercel\.app$/i.test(origin)
+    ) {
       return callback(null, true);
     } else {
       return callback(new Error('Not allowed by CORS: ' + origin));
@@ -30,15 +36,14 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
 };
 
-// 🟢 CORS and JSON middleware FIRST
+// 🟢 Apply CORS before routes
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
 app.use(express.json());
 app.use(cookieParser());
 
-// 🟢 Handle OPTIONS preflight globally
-app.options('*', cors(corsOptions));
-
-// 🟢 Add headers manually (optional)
+// 🟢 Add headers manually (optional but helps)
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
@@ -46,7 +51,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// 🟢 Then routes
 app.get("/", (req, res) => {
   res.json({
     message: "Backend API is running",
