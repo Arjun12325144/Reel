@@ -8,29 +8,33 @@ const cors = require('cors')
 const app = express(); 
 
  
+const cors = require('cors');
 const allowedOrigins = [
   'http://localhost:5173',
-  'http://127.0.0.1:5173',
-  'https://reel-fqhx.vercel.app',
-  'https://reel-s73t.vercel.app'
+  'http://127.0.0.1:5173'
 ];
 
 const corsOptions = {
   origin: function(origin, callback) {
-    console.log('CORS origin:', origin); // debug line
-    if (!origin) return callback(null, true); // allow non-browser requests
+    console.log('CORS origin:', origin);
+    if (!origin) return callback(null, true);
 
-    // allow explicit whitelist OR any vercel.app subdomain
-    if (allowedOrigins.includes(origin) || /\.vercel\.app$/i.test(origin)) {
+    if (
+      allowedOrigins.includes(origin) ||
+      /\.vercel\.app$/i.test(origin) // allow any vercel subdomain
+    ) {
       return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS: ' + origin));
     }
-    return callback(new Error('Not allowed by CORS: ' + origin));
   },
   credentials: true,
   methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
   allowedHeaders: ['Content-Type','Authorization','X-Requested-With','Accept']
 };
+
 app.use(cors(corsOptions));
+
 
 // The global CORS middleware above handles preflight OPTIONS requests.
 // Avoid registering a catch-all OPTIONS route with a wildcard path string
