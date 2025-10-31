@@ -8,37 +8,32 @@ const foodPartnerRoutes = require('./routes/food-partner.routes');
 const app = express();
 
 const allowedOrigins = [
-  'http://localhost:5173',
-  'http://127.0.0.1:5173',
-  'https://reel-liart.vercel.app',
-  'https://reel-git-main-arjuns-projects-edf07b04.vercel.app',
-  'https://reel-pgui4ezff-arjuns-projects-edf07b04.vercel.app',
-  'https://reel-s73t.vercel.app'
+  "http://localhost:5173",
+  "https://reel-liart.vercel.app",
+  "https://reel-git-main-arjuns-projects-edf07b04.vercel.app",
+  "https://reel-pgui4ezff-arjuns-projects-edf07b04.vercel.app",
+  "https://reel-s73t.vercel.app"
 ];
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    console.log('CORS origin:', origin);
-    if (!origin) return callback(null, true); // allow server-to-server and Postman
-
-    // ✅ Allow explicitly whitelisted domains or any Vercel preview
-    if (
-      allowedOrigins.includes(origin) ||
-      /\.vercel\.app$/i.test(origin)
-    ) {
-      return callback(null, true);
-    } else {
-      return callback(new Error('Not allowed by CORS: ' + origin));
-    }
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
-};
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      console.log("CORS origin:", origin);
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 // 🟢 Apply CORS before routes
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
+// app.use(cors(corsOptions));
+// app.options('*', cors(corsOptions));
 
 app.use(express.json());
 app.use(cookieParser());
